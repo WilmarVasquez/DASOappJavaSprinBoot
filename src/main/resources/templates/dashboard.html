@@ -1,0 +1,65 @@
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .button-container {
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button.logout {
+            background-color: #DC3545;
+        }
+        .button:hover {
+            opacity: 0.9;
+        }
+        .button.edit {
+            background-color: #28A745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido al Dashboard</h1>
+    <p>Selecciona una acción:</p>
+
+    <div class="button-container">
+        <!-- Botón para registrar compras -->
+        
+        <a th:href="@{/compras/registro}" class="button">Registrar Compras</a>
+
+        <!-- Botón para registrar ventas -->
+        <a th:href="@{/ventas/registro}" class="button">Registrar Ventas</a>
+
+        <!-- Botón para editar perfil -->
+        <a th:href="@{/perfil}" class="button edit">Editar Perfil</a>
+
+        <!-- Botón para cerrar sesión -->
+        <a th:href="@{/usuarios/logout}" class="button logout">Cerrar Sesión</a>
+    </div>
+</body>
+</html>

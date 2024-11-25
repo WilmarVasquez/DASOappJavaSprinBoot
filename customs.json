@@ -1,0 +1,9 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:action": {
+            "context": "form"
+        },
+        "th:href": {}
+    }
+}

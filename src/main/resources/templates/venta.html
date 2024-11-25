@@ -1,0 +1,155 @@
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de Ventas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .venta-container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn-agregar {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-agregar:hover {
+            background-color: #0056b3;
+        }
+        .btn-buscar {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-buscar:hover {
+            background-color: #1e7e34;
+        }
+        .btn-editar {
+            background-color: #ffc107;
+            color: #fff;
+        }
+        .btn-editar:hover {
+            background-color: #e0a800;
+        }
+        .btn-eliminar {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .btn-eliminar:hover {
+            background-color: #c82333;
+        }
+        .error, .success {
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="venta-container">
+        <h1>Gestión de Ventas</h1>
+
+        <!-- Mensajes de error o éxito -->
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+        <div class="success" th:if="${success}" th:text="${success}"></div>
+
+        <!-- Formulario de CRUD -->
+        <form action="/ventas/agregar" method="post">
+            <div class="form-group">
+                <label for="ticket">Ticket:</label>
+                <input type="text" id="ticket" name="ticket" placeholder="Ingresa el ticket" required>
+            </div>
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" required>
+            </div>
+            <div class="form-group">
+                <label for="precioXticket">Precio por Ticket:</label>
+                <input type="number" step="0.01" id="precioXticket" name="precioXticket" placeholder="Ingresa el precio por ticket" required>
+            </div>
+            <div class="btn-container">
+                <!-- Botón para agregar venta -->
+                <button type="submit" class="btn btn-agregar">Agregar Venta</button>
+                <!-- Botón para buscar compra por ID -->
+                <a th:href="@{/compras/buscar}" class="btn btn-buscar">Buscar Compra</a>
+            </div>
+        </form>
+
+        <!-- Formulario para editar venta -->
+        <form action="/ventas/editar" method="post" style="margin-top: 20px;">
+            <div class="form-group">
+                <label for="idVenta">ID Venta:</label>
+                <input type="number" id="idVenta" name="idVenta" placeholder="Ingresa el ID de la venta" required>
+            </div>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-editar">Editar Venta</button>
+            </div>
+        </form>
+
+        <!-- Formulario para eliminar venta -->
+        <form action="/ventas/eliminar" method="post" style="margin-top: 20px;">
+            <div class="form-group">
+                <label for="idEliminarVenta">ID Venta:</label>
+                <input type="number" id="idEliminarVenta" name="idVenta" placeholder="Ingresa el ID de la venta a eliminar" required>
+            </div>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-eliminar">Eliminar Venta</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
