@@ -87,7 +87,7 @@ public class CompraController {
             model.addAttribute("error", "Error al registrar compra: " + e.getMessage());
         }
 
-        return "redirect:/compras";
+        return "redirect:/dashboard";
     }
 
     // Maneja la eliminación de una compra

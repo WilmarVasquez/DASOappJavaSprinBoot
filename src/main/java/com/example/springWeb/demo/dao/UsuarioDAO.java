@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioDAO extends JpaRepository<Usuario, Integer> {
@@ -25,5 +26,7 @@ public interface UsuarioDAO extends JpaRepository<Usuario, Integer> {
      Usuario findByEmailAndContrasena(String email, String contrasena);
      
      boolean existsByEmail(String email);
+     
+     Optional<Usuario> findByIdUsuario(int idUsuario);
 }
 
