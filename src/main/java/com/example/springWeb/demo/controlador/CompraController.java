@@ -73,7 +73,7 @@ public class CompraController {
 
         try {
             Compra nuevaCompra = new Compra();
-            nuevaCompra.setfecha_compra(LocalDate.now());
+            nuevaCompra.setfechaCompra(LocalDate.now());
             nuevaCompra.setTicket(ticket);
             nuevaCompra.setCantidad(cantidad);
             nuevaCompra.precioXticket(precioXticket);

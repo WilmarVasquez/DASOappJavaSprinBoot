@@ -18,8 +18,8 @@ public class Compra {
     @Column(name = "idCompra")
     private int idCompra;
 
-    @Column(name = "fecha_compra", nullable = false)
-    private LocalDate fecha_compra; // Reemplaza TemporalType.DATE con LocalDate
+    @Column(name = "fechaCompra", nullable = false)
+    private LocalDate fechaCompra; // Reemplaza TemporalType.DATE con LocalDate
 
     @Column(name = "ticket", nullable = false, length = 50)
     private String ticket;
@@ -47,8 +47,8 @@ public class Compra {
     }
 
     // Constructor con parámetros
-    public Compra(LocalDate fecha_compra, String ticket, int cantidad, double precioXticket, Usuario usuario) {
-        this.fecha_compra = fecha_compra;
+    public Compra(LocalDate fechaCompra, String ticket, int cantidad, double precioXticket, Usuario usuario) {
+        this.fechaCompra = fechaCompra;
         this.ticket = ticket;
         this.cantidad = cantidad;
         this.precioXticket = precioXticket;
@@ -65,12 +65,12 @@ public class Compra {
         this.idCompra = idCompra;
     }
 
-    public LocalDate getfecha_compra() {
-        return fecha_compra;
+    public LocalDate getfechaCompra() {
+        return fechaCompra;
     }
 
-    public void setfecha_compra(LocalDate fecha_compra) {
-        this.fecha_compra = fecha_compra;
+    public void setfechaCompra(LocalDate fechaCompra) {
+        this.fechaCompra = fechaCompra;
     }
 
     public String getTicket() {
@@ -144,7 +144,7 @@ public class Compra {
     public String toString() {
         return "Compra{" +
                 "idCompra=" + idCompra +
-                ", fecha_compra=" + fecha_compra +
+                ", fechaCompra=" + fechaCompra +
                 ", ticket='" + ticket + '\'' +
                 ", cantidad=" + cantidad +
                 ", precioXticket=" + precioXticket +
