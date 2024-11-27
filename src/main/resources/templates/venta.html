@@ -2,11 +2,14 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Ventas</title>
     <style>
+        /* Estilo similar al anterior */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -72,20 +75,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         .btn-buscar:hover {
             background-color: #1e7e34;
         }
-        .btn-editar {
-            background-color: #ffc107;
-            color: #fff;
-        }
-        .btn-editar:hover {
-            background-color: #e0a800;
-        }
-        .btn-eliminar {
-            background-color: #dc3545;
-            color: #fff;
-        }
-        .btn-eliminar:hover {
-            background-color: #c82333;
-        }
         .error, .success {
             font-size: 14px;
             margin-bottom: 10px;
@@ -107,48 +96,55 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="error" th:if="${error}" th:text="${error}"></div>
         <div class="success" th:if="${success}" th:text="${success}"></div>
 
-        <!-- Formulario de CRUD -->
-        <form action="/ventas/agregar" method="post">
+        <!-- Buscar Compra -->
+        <form action="/ventas/buscacompra" method="get">
+            <div class="form-group">
+                <label for="idCompra">ID Compra:</label>
+                <input type="number" name="idCompra" id="idCompra" placeholder="Ingresa el ID de la compra" required>
+            </div>
+            <div class="btn-container">
+                <button type="submit">Buscar Compra</button>
+            </div>
+        </form>
+        
+        <!-- Mostrar resultados de la búsqueda -->
+        <div>
+            <h2>Resultados de la Compra</h2>
+            <div th:if="${compra != null}">
+                <p><strong>Ticket:</strong> <span th:text="${compra.ticket}"></span></p>
+                <p><strong>Cantidad:</strong> <span th:text="${compra.cantidad}"></span></p>
+            </div>
+            <div th:if="${error != null}">
+                <p th:text="${error}" style="color: red;"></p>
+            </div>
+        </div>
+
+        <!-- Formulario de Registro de Ventas -->
+        <form action="/ventas/registro" method="post">
+            <div class="form-group">
+                <label for="fechaVenta">Fecha de Venta:</label>
+                <input type="date" id="fechaVenta" name="fechaVenta" required>
+            </div>
             <div class="form-group">
                 <label for="ticket">Ticket:</label>
-                <input type="text" id="ticket" name="ticket" placeholder="Ingresa el ticket" required>
+                <input type="text" id="ticket" name="ticket" th:value="${compra?.ticket}" readonly>
             </div>
             <div class="form-group">
                 <label for="cantidad">Cantidad:</label>
-                <input type="number" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" required>
+                <input type="number" id="cantidad" name="cantidad" th:value="${compra?.cantidad}" readonly>
             </div>
             <div class="form-group">
-                <label for="precioXticket">Precio por Ticket:</label>
-                <input type="number" step="0.01" id="precioXticket" name="precioXticket" placeholder="Ingresa el precio por ticket" required>
+                <label for="precioxTicket">Precio por Ticket:</label>
+                <input type="number" step="0.01" id="precioxTicket" name="precioxTicket" placeholder="Ingresa el precio por ticket" required>
             </div>
-            <div class="btn-container">
-                <!-- Botón para agregar venta -->
-                <button type="submit" class="btn btn-agregar">Agregar Venta</button>
-                <!-- Botón para buscar compra por ID -->
-                <a th:href="@{/compras/buscar}" class="btn btn-buscar">Buscar Compra</a>
-            </div>
-        </form>
-
-        <!-- Formulario para editar venta -->
-        <form action="/ventas/editar" method="post" style="margin-top: 20px;">
             <div class="form-group">
-                <label for="idVenta">ID Venta:</label>
-                <input type="number" id="idVenta" name="idVenta" placeholder="Ingresa el ID de la venta" required>
+                <label for="totalInversion">Total de Inversión:</label>
+                <input type="number" step="0.01" id="totalInversion" name="totalInversion" placeholder="Calculado automáticamente" readonly>
             </div>
             <div class="btn-container">
-                <button type="submit" class="btn btn-editar">Editar Venta</button>
+                <button type="submit" class="btn btn-agregar">Registrar Venta</button>
             </div>
-        </form>
-
-        <!-- Formulario para eliminar venta -->
-        <form action="/ventas/eliminar" method="post" style="margin-top: 20px;">
-            <div class="form-group">
-                <label for="idEliminarVenta">ID Venta:</label>
-                <input type="number" id="idEliminarVenta" name="idVenta" placeholder="Ingresa el ID de la venta a eliminar" required>
-            </div>
-            <div class="btn-container">
-                <button type="submit" class="btn btn-eliminar">Eliminar Venta</button>
-            </div>
+             <a th:href="@{/dashboard}" class="btn btn-cancelar">Cancelar</a>
         </form>
     </div>
 </body>

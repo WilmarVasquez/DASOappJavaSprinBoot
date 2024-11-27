@@ -5,6 +5,7 @@
 package com.example.springWeb.demo.modelo;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -19,41 +20,39 @@ public class Venta {
     @Column(name = "fechaVenta", nullable = false)
     private LocalDate fechaVenta;
 
-    @Column(name = "ticket", nullable = false, length = 50)
+    @Column(name = "ticket", nullable = false, length = 100)
     private String ticket;
 
     @Column(name = "cantidad", nullable = false)
     private int cantidad;
 
-    @Column(name = "precioTicket", nullable = false)
-    private double precioTicket;
+    @Column(name = "precioxTicket", nullable = false, precision = 10, scale = 2)
+    private BigDecimal precioxTicket;
 
-    @Column(name = "totalVenta", nullable = false)
-    private double totalVenta;
+    @Column(name = "totalInversion", nullable = false, precision = 10, scale = 2)
+    private BigDecimal totalInversion;
 
-    // Relación con Usuario (muchas ventas pertenecen a un usuario)
-    @ManyToOne
-    @JoinColumn(name = "idUsuario", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUsuario", nullable = true)
     private Usuario usuario;
 
-    // Relación con Compra (una venta está asociada a una compra)
-    @ManyToOne
-    @JoinColumn(name = "idCompra", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idCompras", nullable = true)
     private Compra compra;
 
-    // Constructor por defecto
+    // Constructor vacío
     public Venta() {
     }
 
     // Constructor con parámetros
-    public Venta(LocalDate fechaVenta, String ticket, int cantidad, double precioTicket, Compra compra, Usuario usuario) {
+    public Venta(LocalDate fechaVenta, String ticket, int cantidad, BigDecimal precioxTicket, BigDecimal totalInversion, Compra compra, Usuario usuario) {
         this.fechaVenta = fechaVenta;
         this.ticket = ticket;
         this.cantidad = cantidad;
-        this.precioTicket = precioTicket;
+        this.precioxTicket = precioxTicket;
+        this.totalInversion = totalInversion;
         this.compra = compra;
         this.usuario = usuario;
-        this.totalVenta = calcularTotalVenta();
     }
 
     // Getters y Setters
@@ -86,31 +85,25 @@ public class Venta {
     }
 
     public void setCantidad(int cantidad) {
-        if (cantidad < 0) {
-            throw new IllegalArgumentException("La cantidad no puede ser negativa.");
-        }
         this.cantidad = cantidad;
-        this.totalVenta = calcularTotalVenta(); // Actualiza el total al cambiar la cantidad
+        actualizarTotalInversion();
     }
 
-    public double getPrecioTicket() {
-        return precioTicket;
+    public BigDecimal getPrecioxTicket() {
+        return precioxTicket;
     }
 
-    public void setPrecioTicket(double precioTicket) {
-        if (precioTicket < 0) {
-            throw new IllegalArgumentException("El precio del ticket no puede ser negativo.");
-        }
-        this.precioTicket = precioTicket;
-        this.totalVenta = calcularTotalVenta(); // Actualiza el total al cambiar el precio
+    public void setPrecioxTicket(BigDecimal precioxTicket) {
+        this.precioxTicket = precioxTicket;
+        actualizarTotalInversion();
     }
 
-    public double getTotalVenta() {
-        return totalVenta;
+    public BigDecimal getTotalInversion() {
+        return totalInversion;
     }
 
-    public void setTotalVenta(double totalVenta) {
-        this.totalVenta = totalVenta;
+    public void setTotalInversion(BigDecimal totalInversion) {
+        this.totalInversion = totalInversion;
     }
 
     public Usuario getUsuario() {
@@ -129,12 +122,13 @@ public class Venta {
         this.compra = compra;
     }
 
-    // Lógica de cálculo
-    private double calcularTotalVenta() {
-        return this.cantidad * this.precioTicket;
+    // Método para actualizar el total de la inversión
+    private void actualizarTotalInversion() {
+        if (precioxTicket != null && cantidad > 0) {
+            this.totalInversion = precioxTicket.multiply(BigDecimal.valueOf(cantidad));
+        }
     }
 
-    // Método toString para depuración
     @Override
     public String toString() {
         return "Venta{" +
@@ -142,8 +136,10 @@ public class Venta {
                 ", fechaVenta=" + fechaVenta +
                 ", ticket='" + ticket + '\'' +
                 ", cantidad=" + cantidad +
-                ", precioTicket=" + precioTicket +
-                ", totalVenta=" + totalVenta +
+                ", precioxTicket=" + precioxTicket +
+                ", totalInversion=" + totalInversion +
+                ", usuario=" + (usuario != null ? usuario.getIdUsuario() : "null") +
+                ", compra=" + (compra != null ? compra.getIdCompra() : "null") +
                 '}';
     }
 }

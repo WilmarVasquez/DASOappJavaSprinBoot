@@ -4,6 +4,9 @@
         "th:action": {
             "context": "form"
         },
-        "th:href": {}
+        "th:href": {},
+        "th:value": {
+            "context": "input"
+        }
     }
 }

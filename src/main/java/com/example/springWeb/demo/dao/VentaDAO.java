@@ -4,6 +4,7 @@
  */
 package com.example.springWeb.demo.dao;
 
+import com.example.springWeb.demo.modelo.Compra;
 import com.example.springWeb.demo.modelo.Venta;
 import com.example.springWeb.demo.modelo.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,5 +25,6 @@ public interface VentaDAO extends JpaRepository<Venta, Integer> {
     List<Venta> listarVentasPorCompra(int idCompra);
     
     List<Venta> findByUsuario(Usuario usuario);
+    
 }
 

@@ -62,22 +62,48 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <body>
     <div class="form-container">
         <h2>Registrar Compra</h2>
+        
+        
+         <form action="/compras/comprabusca" method="get">
+            <div class="form-group">
+                <label for="idCompra">ID Compra:</label>
+                <input type="number" name="idCompra" id="idCompra" placeholder="Ingresa el ID de la compra" required>
+            </div>
+            <div class="btn-container">
+                <button type="submit">Buscar Compra</button>
+            </div>
+        </form>
+        
+        
         <form th:action="@{/compras/agregar}" method="post">
             <div class="form-group">
                 <label for="ticket">Ticket:</label>
-                <input type="text" id="ticket" name="ticket" placeholder="Ingresa el ticket" required>
+                <input type="text" id="ticket" name="ticket" th:value="${compra?.ticket}" placeholder="Ingresa el ticket" required>
             </div>
             <div class="form-group">
                 <label for="cantidad">Cantidad:</label>
-                <input type="number" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" required>
+                <input type="number" id="cantidad" name="cantidad" th:value="${compra?.cantidad}" placeholder="Ingresa la cantidad" required>
             </div>
             <div class="form-group">
                 <label for="precioXticket">Precio por Ticket:</label>
                 <input type="number" id="precioXticket" name="precioXticket" step="0.01" placeholder="Ingresa el precio por ticket" required>
             </div>
             <button type="submit">Registrar Compra</button>
-            <a th:href="@{/dashboard}" class="btn btn-cancelar">Cancelar</a>
+          
         </form>
+        
+        <!-- Botón para borrar una compra -->
+        <form action="/compras/borrar" method="post">
+            <div class="form-group">
+                <label for="idCompra">ID Compra:</label>
+                <input type="number" name="idCompra" id="idCompra" placeholder="Ingresa el ID de la compra" required>
+            </div>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-borrar" style="background-color: red; color: white;">Borrar</button>
+            </div>
+        </form>
+
+          <a th:href="@{/dashboard}" class="btn btn-cancelar">Cancelar</a>
     </div>
 </body>
 </html>

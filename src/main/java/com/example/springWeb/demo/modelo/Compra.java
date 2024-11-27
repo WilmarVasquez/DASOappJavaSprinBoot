@@ -34,7 +34,7 @@ public class Compra {
     private double totalInversion;
 
     // Relación con Usuario (muchas compras pertenecen a un usuario)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario usuario;
 
